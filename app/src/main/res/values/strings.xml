@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">My Fitness Traker</string>
+    <string name="label_imc">IMC</string>
+</resources>
