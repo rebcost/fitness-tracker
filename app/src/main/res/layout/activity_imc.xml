@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,42 +13,24 @@
         tools:context=".ImcActivity">
 
         <TextView
+            style="@style/TextViewForm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="40dp"
             android:text="@string/imc_desc" />
 
         <EditText
             android:id="@+id/edit_imc_weight"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="40dp"
-            android:hint="@string/weight"
-            android:inputType="number"
-            android:maxLength="3" />
+            style="@style/EditTextForm"
+            android:hint="@string/weight" />
 
         <EditText
             android:id="@+id/edit_imc_height"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
-            android:layout_marginBottom="40dp"
-            android:hint="@string/height"
-            android:inputType="number"
-            android:maxLength="3" />
+            style="@style/EditTextForm"
+            android:hint="@string/height" />
 
         <Button
             android:id="@+id/btn_imc_send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:backgroundTint="@color/black"
+            style="@style/ButtonForm"
             android:text="@string/calc" />
 
     </LinearLayout>
