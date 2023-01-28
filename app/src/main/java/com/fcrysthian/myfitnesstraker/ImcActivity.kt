@@ -1,12 +1,17 @@
 package com.fcrysthian.myfitnesstraker
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.inputmethodservice.InputMethodService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.appcompat.app.AlertDialog
 
 class ImcActivity : AppCompatActivity() {
 
@@ -24,37 +29,47 @@ class ImcActivity : AppCompatActivity() {
 
         btnImcSend.setOnClickListener {
 
-            if (!validate()){ //Failure
+            if (!validate()) { //Failure
                 Toast.makeText(this, R.string.fields_message, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-           //success
+            //success
             val weight = editWeight.text.toString().toInt()
             val height = editHeight.text.toString().toInt()
 
             val result = calculateImc(weight, height)
             Log.d("IMC", "Resultado: $result")
 
-            val imcResponseId =  imcResponse(result)
-            Toast.makeText(this, imcResponseId, Toast.LENGTH_SHORT).show()
+            val imcResponseId = imcResponse(result)
+
+            AlertDialog.Builder(this)
+                .setTitle(getString(R.string.imc_response, result))
+                .setMessage(imcResponseId)
+                .setPositiveButton(android.R.string.ok) { dialog, which -> }
+                .create()
+                .show()
+
+            val service = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            service.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
+
         }
     }
 
-    private fun validate():Boolean{
+    private fun validate(): Boolean {
         //nao pode inserir valor nulos
         //nao pode inserir valor 0 para weight e height
-        return  editWeight.text.toString().isNotEmpty()&&
-                editHeight.text.toString().isNotEmpty()&&
-                !editWeight.text.startsWith("0")&&
+        return editWeight.text.toString().isNotEmpty() &&
+                editHeight.text.toString().isNotEmpty() &&
+                !editWeight.text.startsWith("0") &&
                 !editHeight.text.startsWith("0")
     }
 
-    private fun calculateImc(weight: Int, height: Int): Double{
+    private fun calculateImc(weight: Int, height: Int): Double {
         return weight / ((height / 100.0) * (height / 100.0))
     }
 
     @StringRes
-    private fun imcResponse(imc: Double):Int{
+    private fun imcResponse(imc: Double): Int {
         return when {
             imc < 15.0 -> R.string.imc_severely_low_weight
             imc < 16.0 -> R.string.imc_very_low_weight
