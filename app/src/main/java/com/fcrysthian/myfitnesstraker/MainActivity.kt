@@ -1,5 +1,6 @@
 package com.fcrysthian.myfitnesstraker
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.LinearLayout
@@ -15,7 +16,8 @@ class MainActivity : AppCompatActivity() {
         buttonImc = findViewById(R.id.buttonImc)
 
         buttonImc.setOnClickListener{
-
+            val intent = Intent(this, ImcActivity::class.java)
+            startActivity(intent)
         }
 
     }
