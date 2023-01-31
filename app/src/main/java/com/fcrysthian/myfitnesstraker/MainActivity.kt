@@ -3,18 +3,15 @@ package com.fcrysthian.myfitnesstraker
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
@@ -44,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val adapter = MainAdapter(mainItems){id ->
+        val adapter = MainAdapter(mainItems) { id ->
             when (id) {
                 1 -> {
                     val intent = Intent(this@MainActivity, ImcActivity::class.java)
@@ -59,7 +56,7 @@ class MainActivity : AppCompatActivity() {
 
         rvMain = findViewById(R.id.rv_main)
         rvMain.adapter = adapter
-        rvMain.layoutManager = GridLayoutManager(this,2 )
+        rvMain.layoutManager = GridLayoutManager(this, 2)
 
     }
 
