@@ -23,17 +23,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val mainItems = mutableListOf<MainItem>()
-        mainItems.add(
-            MainItem(
+        val calcs = mutableListOf<Calc>()
+        calcs.add(
+            Calc(
                 id = 1,
                 drawableId = R.drawable.ic_baseline_wb_sunny_24,
                 textStringId = R.string.imc,
                 color = Color.GREEN
             )
         )
-        mainItems.add(
-            MainItem(
+        calcs.add(
+            Calc(
                 id = 2,
                 drawableId = R.drawable.ic_baseline_water_drop_24,
                 textStringId = R.string.tmb,
@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        val adapter = MainAdapter(mainItems) { id ->
+        val adapter = MainAdapter(calcs) { id ->
             when (id) {
                 1 -> {
                     val intent = Intent(this@MainActivity, ImcActivity::class.java)
@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private inner class MainAdapter(
-        private val mainItems: List<MainItem>,
+        private val calcs: List<Calc>,
 //        private val onItemClickListener: OnItemClickListener
         private val onItemClickListener: (Int) -> Unit,
     ) : RecyclerView.Adapter<MainAdapter.MainViewHolder>() {
@@ -75,18 +75,18 @@ class MainActivity : AppCompatActivity() {
         // 2 - disparado toda vez houver uma rolagem na tela e for necessario trocar o conteudo
         // da celula
         override fun onBindViewHolder(holder: MainViewHolder, position: Int) {
-            val itemCurrent = mainItems[position]
+            val itemCurrent = calcs[position]
             holder.bind(itemCurrent)
         }
 
         // 3 - informar quantas celulas essa listagem terá
         override fun getItemCount(): Int {
-            return mainItems.size
+            return calcs.size
         }
 
         // é a classe da celula em si!!!
         private inner class MainViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            fun bind(item: MainItem) {
+            fun bind(item: Calc) {
                 val img: ImageView = itemView.findViewById(R.id.item_img_icon)
                 val name: TextView = itemView.findViewById(R.id.item_txt_name)
                 val container: LinearLayout = itemView.findViewById(R.id.item_container_imc)

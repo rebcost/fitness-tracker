@@ -2,10 +2,13 @@ package com.fcrysthian.myfitnesstraker
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.inputmethodservice.InputMethodService
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -52,12 +55,12 @@ class ImcActivity : AppCompatActivity() {
                         val app = application as App
                         val dao = app.db.calcDao()
                         dao.insert(Calc(type = "imc", res = result))
-                        
+
                         runOnUiThread {
-                            Toast.makeText(this@ImcActivity, R.string.calc_saved, Toast.LENGTH_SHORT).show()
+                            openListActivity()
                         }
 
-                    }
+                    }.start()
                 }
                 .create()
                 .show()
@@ -95,6 +98,23 @@ class ImcActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+       menuInflater.inflate(R.menu.menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if(item.itemId == R.id.menu_search){
+            openListActivity()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun openListActivity() {
+        val intent = Intent(this@ImcActivity, ListCalcActivity::class.java)
+        intent.putExtra("type", "imc")
+        startActivity(intent)
+    }
 
 
 }
